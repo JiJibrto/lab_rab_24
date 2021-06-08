@@ -25,7 +25,7 @@ def first(x, n):
         previous = current
         current = current + sm_first(x, n)
         n += 1
-        print(n)
+        # print(n)
 
     current = round(current, 6)
     test = round(test, 6)
@@ -33,7 +33,7 @@ def first(x, n):
 
 
 def sm_second(x, n):
-    return ((-1) ** n) * x ** (2 * n) / math.factorial(2 * n)
+    return math.cos(n*x)*n/(4*(n**2)-1)
 
 
 def second(x, n):
@@ -44,22 +44,21 @@ def second(x, n):
 
     current = sm_second(x, n)
     n += 1
-    test = math.cos(x)
+    test = - 1/4 - ((1 / 4) * math.cos(x/2) * (math.log(math.tan(x/4))))
 
-    while math.fabs(current - previous) > eps:
+    while math.fabs(math.fabs(current) - math.fabs(previous)) > eps:
         previous = current
         current = current + sm_second(x, n)
         n += 1
-        print(n)
+        print(current)
 
     current = round(current, 6)
     test = round(test, 6)
-    if current == test:
-        print(f'Сумма ряда {current} = проверочному значению {test}')
+    print(f'Сумма ряда {current} ~ проверочному значению {test}')
 
 
 if __name__ == '__main__':
-    th2 = Thread(target=second(0.3, 0))
+    th2 = Thread(target=second(math.pi/6, 1))
     th1 = Thread(target=first(-(math.pi/2), 1))
 
     th1.start()
